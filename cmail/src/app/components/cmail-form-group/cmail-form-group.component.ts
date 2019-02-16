@@ -1,4 +1,6 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Input} from '@angular/core';
+import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'cmail-form-group',
@@ -9,6 +11,8 @@ export class CmailFormGroupComponent implements OnInit {
 
   textoDaLabel = '';
   idCampo      = '';
+
+  @Input() campo = new FormControl();
 
   // PRIVATE = PARA USAR EM TODA CLASSE
   // ELEMTENT: TIPO-INJETÁVEL ( como não instanciamos o nosso component no html e sim em outros componentes, precisamos instanciar ele como um tipo Injectable para quando chamarem ele, ele já estar instanciado )

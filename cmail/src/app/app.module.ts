@@ -1,34 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 import { ModuloRoteamento } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HeaderComponent } from './components/header/header.component';
-import { RouterModule } from '@angular/router';
+
 import { LoginComponent } from './modules/login/login.component';
-import { CadastroComponent } from './modules/cadastro/cadastro.component';
 import { CaixaDeEntradaComponent } from './modules/caixa-de-entrada/caixa-de-entrada.component';
-import { CmailFormGroupComponent } from './components/cmail-form-group/cmail-form-group.component';
-import { CmailFormFieldDirective } from './components/cmail-form-group/cmail-form-field.directive';
+import { CadastroModule } from './modules/cadastro/cadastro.module';
+import { SharedComponentModule } from './components/shared-components.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     LoginComponent,
-    CadastroComponent,
     CaixaDeEntradaComponent,
-    CmailFormGroupComponent,
-    CmailFormFieldDirective
   ],
   imports: [
     BrowserModule,
     ModuloRoteamento,
     FormsModule,
-    RouterModule,
-    ReactiveFormsModule
+    RouterModule/* NÃO ESTÁ NA APOSTILA */,
+    HttpClientModule,
+    CadastroModule,
+    SharedComponentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

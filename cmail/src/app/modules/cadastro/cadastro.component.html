@@ -5,30 +5,110 @@
       <div class="mdl-grid">
         <form [formGroup]="formCadastro" (ngSubmit)="handleCadastrarUsuario()">
 
-          <cmail-form-group>
+          <cmail-form-group [campo]="formCadastro.get('nome')" >
             <input formControlName="nome" type="text" name="nome" cmailFormField autofocus >
-            <span class="mdl-textfield__error">Informar um nome é obrigatório</span>
+            
+            <div *ngIf="formCadastro.get('nome').errors">
+
+              <!-- Se tiver erros -->
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('nome').errors.required">
+                Informar um nome é obrigatório
+              </span>
+
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('nome').errors.minlength">
+                Você preencheu {{ formCadastro.get('nome').errors.minlength.actualLength }} caracteres de {{ formCadastro.get('nome').errors.minlength.requiredLength }}
+              </span>
+            </div>
+
           </cmail-form-group>
 
-          <cmail-form-group>
+          <cmail-form-group [campo]="formCadastro.get('username')">
             <input formControlName="username" type="text"  name="username" cmailFormField>
-            <span class="mdl-textfield__error">Informar um nome de usuário é obrigatório</span>
+            
+            <div *ngIf="formCadastro.get('username').errors">
+              
+              <!-- Se tiver erros -->
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('username').errors.required">
+                Informar um username é obrigatório
+              </span>
+
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('username').errors.minlength">
+                Você preencheu {{ formCadastro.get('username').errors.minlength.actualLength }} caracteres de {{ formCadastro.get('username').errors.minlength.requiredLength }}
+              </span>
+
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('username').errors.maxlength">
+                Limite de {{ formCadastro.get('username').errors.maxlength.requiredLength }} caracteres
+              </span>
+
+            </div>
           </cmail-form-group>
 
-          <cmail-form-group>
+          <cmail-form-group [campo]="formCadastro.get('senha')">
             <input formControlName="senha" type="password" name="senha"  cmailFormField>
-            <span class="mdl-textfield__error">Informar uma senha é obrigatório</span>
+            
+            <div *ngIf="formCadastro.get('senha').errors">
+              
+              <!-- Se tiver erros -->
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('senha').errors.required">
+                Informar uma senha é obrigatório
+              </span>
+
+            </div>
+
           </cmail-form-group>
 
-          <cmail-form-group>
+          <cmail-form-group [campo]="formCadastro.get('avatar')">
+
             <input formControlName="avatar" type="text" name="avatar" cmailFormField>
+
+            <div *ngIf="formCadastro.get('avatar').errors">
+              
+              <!-- Se tiver erros -->
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('avatar').errors.required">
+                Informar uma imagem é obrigatório
+              </span>
+
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('avatar').status == 'PENDING'">
+                Validação pendente...
+              </span>
+
+              <!-- <span class="mdl-textfield__error" *ngIf="formCadastro.get('avatar').status == 200 ">
+                URL Válida!
+              </span> -->
+
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('avatar').hasError('urlInvalida')">
+                Erro na URL informada!
+              </span>
+
+            </div>
+
           </cmail-form-group>
+
+          <cmail-form-group [campo]="formCadastro.get('telefone')">
+              <input formControlName="telefone" type="telefone" name="telefone" cmailFormField>
+
+              <div *ngIf="formCadastro.get('telefone').errors">
+
+                <!-- Se tiver erros SITE PARA VERIFICAR INTEGRIDADE DO REGEXP:https://regexr.com/ -->
+                <span class="mdl-textfield__error" *ngIf="formCadastro.get('telefone').errors.pattern">
+                  Informe um telefone válido! Ex:00000-0000
+                </span>
+  
+              </div>
+
+            </cmail-form-group>
 
           <div class="mdl-card__actions">
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
               Cadastrar
             </button>
           </div>
+
+          <ul *ngIf="mensagensErro" class="mdl-textfield is-invalid">
+            <li *ngFor="let erro of mensagensErro" class="mdl-textfield__error">
+              {{ erro.message }} : {{erro.value}}
+            </li>
+          </ul>
 
         </form>
       </div>
