@@ -5,7 +5,7 @@ import { LoginComponent } from './modules/login/login.component';
 import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', loadChildren:'src/app/modules/login/login.module#LoginModule' },
   { path: 'inbox', component: CaixaDeEntradaComponent, canActivate: [AuthGuard] },
   { path: 'cadastro', loadChildren: 'src/app/modules/cadastro/cadastro.module#CadastroModule' },
   { path: '**', redirectTo: 'inbox' }
