@@ -15,6 +15,7 @@ import { CadastroModule } from './modules/cadastro/cadastro.module';
 import { SharedComponentModule } from './components/shared-components.module';
 import { LoginModule } from './modules/login/login.module';
 import { CmailFormModule } from './components/cmail-form-group/cmail-form.module';
+import { AuthGuard } from "src/app/guards/auth.guard";
 
 @NgModule({
   declarations: [
@@ -31,9 +32,9 @@ import { CmailFormModule } from './components/cmail-form-group/cmail-form.module
     // CadastroModule, RETIRADO NO CAP17 PAG 69
     SharedComponentModule,
     LoginModule,
-    CmailFormModule
+    CmailFormModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
