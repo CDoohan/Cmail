@@ -31,8 +31,9 @@ export class CadastroComponent implements OnInit {
                 )
                 .pipe(
                   map((response: HttpResponseBase) => {
+
                     console.log('RESPONSE',response);
-                    return response.ok ? null : { urlInvalida: true }
+                    return response.ok ? true : { urlInvalida: true }
                   }),
                   catchError((error) => {
                     console.log('ERROR',error);

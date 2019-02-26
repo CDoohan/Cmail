@@ -68,7 +68,7 @@
                 Informar uma imagem é obrigatório
               </span>
 
-              <span class="mdl-textfield__error" *ngIf="formCadastro.get('avatar').status == 'PENDING'">
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('avatar').validaImagem == true ">
                 Validação pendente...
               </span>
 
