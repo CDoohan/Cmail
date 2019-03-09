@@ -10,6 +10,7 @@
         <ul>
           <li *ngFor="let email of filtrarEmailsPorAssunto()"><!-- COMO ADICIONAR O "NADA ENCONTRADO" ? -->
               <cmail-list-item
+                [url]="/inbox/email/email.id"
                 [destinatario]="email.destinatario"
                 [assunto]="email.assunto"
                 [introducaoDoConteudo]="email.introducaoDoConteudo"

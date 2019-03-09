@@ -10,6 +10,7 @@ import { HeaderDataService } from '../../services/header.service';
   styleUrls: ['./caixa-de-entrada.component.css']
 })
 export class CaixaDeEntradaComponent implements OnInit {
+  
   private _isNewEmailFormOpen = false
   termoParaFiltro = ''
 
@@ -18,10 +19,15 @@ export class CaixaDeEntradaComponent implements OnInit {
   email = {
     destinatario: '',
     assunto: '',
-    conteudo: ''
+    conteudo: '',
+    url: ''
   }
 
-  constructor(private emailService: EmailService, private pageDataService: PageDataService, private headerService: HeaderDataService) { }//Injetar o EmailService
+  constructor(
+    private emailService: EmailService,
+    private pageDataService: PageDataService,
+    private headerService: HeaderDataService
+    ){ }//Injetar o EmailService
 
   ngOnInit() {
     this.emailService
@@ -34,6 +40,8 @@ export class CaixaDeEntradaComponent implements OnInit {
     
     this.pageDataService.defineTitulo('Inbox - Cmail');
 
+    //A partir do momento que o headerService fizer um .emit()
+    //o .subscribe() irá resolver o que tiver dentro dele
     this.headerService.valorDoFiltro.subscribe(
       novoValor => this.termoParaFiltro = novoValor 
     )
@@ -53,7 +61,7 @@ export class CaixaDeEntradaComponent implements OnInit {
         .subscribe(
           emailApi => {
             this.emailList.push(emailApi)
-            this.email = { destinatario: '', assunto: '', conteudo: '' }
+            this.email = { destinatario: '', assunto: '', conteudo: '', url: '' }
             formEmail.reset()
           },
           erro => console.log(erro)

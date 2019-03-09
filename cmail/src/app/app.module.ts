@@ -17,12 +17,13 @@ import { LoginModule } from './modules/login/login.module';
 import { CmailFormModule } from './components/cmail-form-group/cmail-form.module';
 import { AuthGuard } from "src/app/guards/auth.guard";
 import { FiltroPorAssunto } from './modules/caixa-de-entrada/filtro-por-assunto.pipe'
+import { CaixaDeEntradaModule } from './modules/caixa-de-entrada/caixa-de-entrada.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     // LoginComponent, RETIRADO NO EXERCICIO 7 CAP17
-    CaixaDeEntradaComponent,
+    // CaixaDeEntradaComponent, Retirado a partir do momento que criamos  CaixaDeEntradaModule
     FiltroPorAssunto
   ],
   imports: [
@@ -35,6 +36,7 @@ import { FiltroPorAssunto } from './modules/caixa-de-entrada/filtro-por-assunto.
     SharedComponentModule,
     LoginModule,
     CmailFormModule,
+    CaixaDeEntradaModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

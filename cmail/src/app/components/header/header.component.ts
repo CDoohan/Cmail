@@ -19,8 +19,13 @@ export class HeaderComponent {
     tituloDaPagina = 'CMail';
 
     //Injeção de PageDataService
-    constructor(private pageService: PageDataService, private headerService: HeaderDataService){
+    constructor(
+        private pageService: PageDataService,
+        private headerService: HeaderDataService
+        ){
         //assinando titulo de PageDataService
+        //quando o component for carregado, o eventemitter será acionado
+        // e o subscribe será feito
         this.pageService.titulo.subscribe(
             novoTitulo => this.tituloDaPagina = novoTitulo
         )

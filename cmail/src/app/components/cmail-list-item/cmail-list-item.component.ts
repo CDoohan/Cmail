@@ -11,6 +11,7 @@ export class CmailListItemComponent implements OnInit {
   @Input() assunto = '';
   @Input() introducaoDoConteudo = '';
   @Input() dataDeEnvio = '';
+  @Input() url = '';
   @Output('eventoVaiRemover') vaiRemover = new EventEmitter();
 
   constructor() { }
