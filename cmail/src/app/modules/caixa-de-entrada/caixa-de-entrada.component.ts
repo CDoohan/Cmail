@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EmailService } from 'src/app/services/email.service';
+import { PageDataService } from '../../services/page.service';
+import { HeaderDataService } from '../../services/header.service';
 
 @Component({
   selector: 'app-caixa-de-entrada',
@@ -8,13 +10,8 @@ import { EmailService } from 'src/app/services/email.service';
   styleUrls: ['./caixa-de-entrada.component.css']
 })
 export class CaixaDeEntradaComponent implements OnInit {
-
-  constructor(private emailService: EmailService) { }//Injetar o EmailService
-
-  ngOnInit() {
-  }
-
   private _isNewEmailFormOpen = false
+  termoParaFiltro = ''
 
   //envio do email
   emailList = []
@@ -22,6 +19,24 @@ export class CaixaDeEntradaComponent implements OnInit {
     destinatario: '',
     assunto: '',
     conteudo: ''
+  }
+
+  constructor(private emailService: EmailService, private pageDataService: PageDataService, private headerService: HeaderDataService) { }//Injetar o EmailService
+
+  ngOnInit() {
+    this.emailService
+        .listar()
+        .subscribe(
+          (lista) => {
+            this.emailList = lista
+          }
+        )
+    
+    this.pageDataService.defineTitulo('Inbox - Cmail');
+
+    this.headerService.valorDoFiltro.subscribe(
+      novoValor => this.termoParaFiltro = novoValor 
+    )
   }
 
   //Function que escreve o novo e-mail
@@ -41,10 +56,8 @@ export class CaixaDeEntradaComponent implements OnInit {
             this.email = { destinatario: '', assunto: '', conteudo: '' }
             formEmail.reset()
           },
-
           erro => console.log(erro)
         )
-    
   }
 
   get isNewEmailFormOpen() {
@@ -53,6 +66,37 @@ export class CaixaDeEntradaComponent implements OnInit {
 
   toggleNewEmailForm() {
     this._isNewEmailFormOpen = !this._isNewEmailFormOpen
+  }
+
+  handleRemoveEmail(eventoVaiRemover, emailId){
+    console.log('clicou');
+
+    if ( eventoVaiRemover.status === 'removing' ){
+      this.emailService
+          .deletar(emailId)
+          .subscribe(
+            res => {
+              console.log(res);
+
+              this.emailList = this.emailList.filter(email => email.id != emailId);
+            },
+            err => console.log(err)
+          )
+    }
+  }
+
+  filtrarEmailsPorAssunto() {
+
+    const termoParaFiltroEmMinusculo = this.termoParaFiltro.toLowerCase();
+
+    return this.emailList.filter( email => {
+
+      const assunto = email.assunto.toLowerCase()
+
+      return assunto.includes(termoParaFiltroEmMinusculo);
+
+    })
+
   }
 
 }

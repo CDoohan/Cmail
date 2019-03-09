@@ -30,11 +30,37 @@ export class EmailService {
                                 destinatario: emailApi.to,
                                 assunto: emailApi.subject,
                                 conteudo: emailApi.content,
-                                dataDeEnvio: emailApi.created_at
+                                dataDeEnvio: emailApi.created_at,
+                                id: emailApi.id,
                             })
                         }
                     )
                 )
+    }
+
+    listar(){
+        return this.http
+                    .get(this.api, { headers : this.cabecalho })
+                    .pipe<Email[]>(
+                        map(
+                            (response: any[]) => {
+                                return response   
+                               .map(
+                                emailApi => new Email({
+                                    destinatario : emailApi.to,
+                                    assunto: emailApi.subject,
+                                    conteudo: emailApi.content,
+                                    dataDeEnvio: emailApi.created_at,
+                                    id: emailApi.id,
+                                })
+                               )
+                            }
+                        )
+                    )
+    }
+
+    deletar(id){
+        return this.http.delete(`${this.api}/${id}`, { headers: this.cabecalho } )
     }
 
 }

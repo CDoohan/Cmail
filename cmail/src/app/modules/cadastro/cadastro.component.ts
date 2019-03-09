@@ -4,6 +4,7 @@ import { HttpClient, HttpResponseBase, HttpErrorResponse } from '@angular/common
 import { map, catchError } from "rxjs/operators";
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { PageDataService } from '../../services/page.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -18,8 +19,8 @@ export class CadastroComponent implements OnInit {
     nome: new FormControl('', [Validators.required, Validators.minLength(3)] ),
     username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
     senha: new FormControl('', [Validators.required]),
-    telefone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{5}-?[0-9]{4}[0-9]?')] ),
-    avatar: new FormControl('', [Validators.required], this.validaImagem.bind(this)),
+    telefone: new FormControl('', [Validators.required] ),
+    avatar: new FormControl(''),//[Validators.required], this.validaImagem.bind(this) Erro no avatar localmente
   })
 
   validaImagem(campoDoFormulario: FormControl){
@@ -80,11 +81,11 @@ export class CadastroComponent implements OnInit {
 
   }
 
-  constructor( private httpClient: HttpClient, private roteador: Router) { }
+  constructor( private httpClient: HttpClient, private roteador: Router,private pageDataService: PageDataService) { }
 
 
   ngOnInit() {
-    
+    this.pageDataService.defineTitulo('Cadastro - Cmail');
   }
 
 }

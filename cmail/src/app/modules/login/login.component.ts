@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LoginService } from "src/app/services/login.service";
+import { PageDataService } from '../../services/page.service';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +17,11 @@ export class LoginComponent implements OnInit {
 
   login = { email: '', password:'' }
 
-  constructor( private loginService: LoginService, private roteador: Router ) { }
+  constructor( private loginService: LoginService, private roteador: Router, private pageDataService: PageDataService ) { }
 
-  ngOnInit() {  }
+  ngOnInit() { 
+    this.pageDataService.defineTitulo('Login - Cmail');    
+  }
 
   handleLogin(formLogin: NgForm){
     if( formLogin.valid ){
@@ -26,7 +29,7 @@ export class LoginComponent implements OnInit {
           .logar(this.login)
           .subscribe(
             () => this.roteador.navigate(['/inbox'])
-            ,(responseError: HttpErrorResponse ) => this.mensagemErro = responseError.error
+            ,(responseError: HttpErrorResponse ) => this.mensagemErro = responseError.error.message
           )
     }
   }
