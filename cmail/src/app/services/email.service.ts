@@ -59,6 +59,18 @@ export class EmailService {
                     )
     }
 
+    // listarEmail(id: any){
+    //     return this.http
+    //                 .get(this.api, { headers : this.cabecalho })
+    //                 .pipe<Email[]>(
+    //                     map(
+    //                         (response) => {
+    //                             console.log(response)  
+    //                         }
+    //                     )
+    //                 )
+    // }
+
     deletar(id){
         return this.http.delete(`${this.api}/${id}`, { headers: this.cabecalho } )
     }

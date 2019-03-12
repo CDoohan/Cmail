@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { EmailService } from 'src/app/services/email.service';
 import { PageDataService } from '../../services/page.service';
 import { HeaderDataService } from '../../services/header.service';
@@ -20,13 +21,14 @@ export class CaixaDeEntradaComponent implements OnInit {
     destinatario: '',
     assunto: '',
     conteudo: '',
-    url: ''
+    id: ''
   }
 
   constructor(
     private emailService: EmailService,
     private pageDataService: PageDataService,
-    private headerService: HeaderDataService
+    private headerService: HeaderDataService,
+    private router: Router
     ){ }//Injetar o EmailService
 
   ngOnInit() {
@@ -54,14 +56,14 @@ export class CaixaDeEntradaComponent implements OnInit {
 
     if( formEmail.invalid ) return;
     
-    this.emailList.push(this.email)
+    // this.emailList.push(this.email)
 
     this.emailService
         .enviar(this.email)
         .subscribe(
           emailApi => {
             this.emailList.push(emailApi)
-            this.email = { destinatario: '', assunto: '', conteudo: '', url: '' }
+            this.email = { destinatario: '', assunto: '', conteudo: '', id: '' }
             formEmail.reset()
           },
           erro => console.log(erro)
@@ -105,6 +107,12 @@ export class CaixaDeEntradaComponent implements OnInit {
 
     })
 
+  }
+
+  emailPage(goToEmail, id: number){
+    if ( goToEmail.status === 'clicked' ){
+      this.router.navigate(['/inbox', id]);
+    }
   }
 
 }

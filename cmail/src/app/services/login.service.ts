@@ -10,11 +10,22 @@ export class LoginService{
     constructor(private http: HttpClient){}
 
     logar(dadosLogin){
+        console.log(dadosLogin);
         return this.http
             .post(this.api, dadosLogin)
             .pipe(
                 map( (response: any) => {
+
+                    let user = {
+                        nome: response.name,
+                        imagem: response.avatarUrl,
+                        email: response.email
+                    }
+
+                    // localStorage.setItem('USER', response.)
                     localStorage.setItem('TOKEN', response.token);
+                    localStorage.setItem('USER', JSON.stringify(user));
+                    
                     return response;
                 })
             )

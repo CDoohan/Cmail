@@ -7,15 +7,16 @@
     <div class="page-content">
 
       <div class="mdl-grid">
-        <ul>
+        <ul class="list_emails">
           <li *ngFor="let email of filtrarEmailsPorAssunto()"><!-- COMO ADICIONAR O "NADA ENCONTRADO" ? -->
               <cmail-list-item
-                [url]="/inbox/email/email.id"
+                [id] = "email.id"
                 [destinatario]="email.destinatario"
                 [assunto]="email.assunto"
                 [introducaoDoConteudo]="email.introducaoDoConteudo"
                 [dataDeEnvio]="email.dataDeEnvio"
                 (eventoVaiRemover)="handleRemoveEmail($event, email.id)"
+                (goToEmail)="emailPage($event, email.id)"
               ></cmail-list-item>
           </li>
         </ul>

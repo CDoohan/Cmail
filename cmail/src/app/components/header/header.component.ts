@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PageDataService } from '../../services/page.service';
 import { HeaderDataService } from '../../services/header.service';
  
@@ -11,12 +11,17 @@ import { HeaderDataService } from '../../services/header.service';
     ]
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
 
     // O '_' é nomenclatura para um private
     private _isMenuOpen = false
 
     tituloDaPagina = 'CMail';
+    user = {
+        avatar: '',
+        nome: '',
+        email: ''
+    }
 
     //Injeção de PageDataService
     constructor(
@@ -29,6 +34,20 @@ export class HeaderComponent {
         this.pageService.titulo.subscribe(
             novoTitulo => this.tituloDaPagina = novoTitulo
         )
+    }
+
+    ngOnInit() {
+        if( localStorage.getItem('USER') ){
+            let item = JSON.parse(localStorage.getItem('USER'));
+
+            this.user = {
+                avatar: item.imagem,
+                nome: item.nome,
+                email: item.email
+            }
+
+            return this.user;
+        }
     }
 
     //get declara os métodos quando se tenta puxar o valor isMenuOpen

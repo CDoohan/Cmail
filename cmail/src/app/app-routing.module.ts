@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CaixaDeEntradaComponent } from './modules/caixa-de-entrada/caixa-de-entrada.component';
-import { LoginComponent } from './modules/login/login.component';
 import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [

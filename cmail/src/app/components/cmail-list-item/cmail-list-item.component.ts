@@ -11,8 +11,9 @@ export class CmailListItemComponent implements OnInit {
   @Input() assunto = '';
   @Input() introducaoDoConteudo = '';
   @Input() dataDeEnvio = '';
-  @Input() url = '';
+  @Input() id = '';
   @Output('eventoVaiRemover') vaiRemover = new EventEmitter();
+  @Output('goToEmail') irEmail = new EventEmitter();
 
   constructor() { }
 
@@ -25,6 +26,12 @@ export class CmailListItemComponent implements OnInit {
     if( confirm('Tem certeza?') ){
       this.vaiRemover.emit({ status: 'removing' })
     }
+  }
+
+  goToEmail(click: Event, emailId: string){
+    console.log('Email ID:', emailId);
+
+    this.irEmail.emit({ status: 'clicked' });
   }
 
 }

@@ -6,7 +6,8 @@
         <form [formGroup]="formCadastro" (ngSubmit)="handleCadastrarUsuario()">
 
           <cmail-form-group [campo]="formCadastro.get('nome')" >
-            <input formControlName="nome" type="text" name="nome" cmailFormField autofocus >
+  
+            <input formControlName="nome" class="mdl-textfield__input" type="text" name="nome" cmailFormField autofocus >
             
             <div *ngIf="formCadastro.get('nome').errors">
 

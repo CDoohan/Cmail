@@ -1,1 +1,77 @@
-<p>works!</p>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+    <!-- ADICIONANDO CMAIL-HEADER COMPONENT -->
+    <cmail-header></cmail-header>
+
+    <main class="mdl-layout__content">
+        <div class="page-content email_content">
+            <div class="mdl-grid">
+                <div class="user_info">
+                    <img src="http://placehold.it/48x48" class="headerGlobal__userInfoAvatar">
+                    <div class="headerGlobal__userInfoData">
+                        <h5 class="headerGlobal__userInfoDataName">Pessoa de Tal</h5>
+                        <span><{{ email[0].destinatario }}></span>
+                        <div class="mdl-layout-spacer"></div>
+                    </div>
+                </div>
+                <div class="utilits">
+                    <div>
+                        <span>
+                            {{ email[0].dataDeEnvio | date: 'MMM d, y, h:mm a' }}
+                        </span>
+                    </div>
+                    <div class="mdl-button" (click)="toggleStar($event)">
+                        <i class="large material-icons" [ngClass]="{ 'clicked': isStarClicked }">star</i>
+                    </div>
+                    <div class="mdl-button">
+                        <i class="large material-icons">reply</i>
+                    </div>
+                    <div class="mdl-button">
+                        <i class="large material-icons">print</i>
+                    </div>
+                    <div class="mdl-button">
+                        <i class="large material-icons">open_in_new</i>
+                    </div>
+                    <div class="mdl-button">
+                        <i class="large material-icons">more_vert</i>
+                    </div>
+                </div>
+            </div>
+            <div class="mdl-grid">
+                <div class="text_content">
+                    <p>
+                        {{ email[0].conteudo }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<!-- <div>
+    <div>
+        <p>
+            {{ email[0].id }}
+        </p>
+    </div>
+    <div>
+        <p>
+            {{ email[0].destinatario }}
+        </p>
+    </div>
+    <div>
+        <p>
+            {{ email[0].assunto }}
+        </p>
+    </div>
+    <div>
+        <p>
+            {{ email[0].introducaoDoConteudo }}
+        </p>
+    </div>
+    <div>
+        <p>
+            {{ email[0].dataDeEnvio }}
+        </p>
+    </div>
+    </div> -->
+    

@@ -1,5 +1,5 @@
 <!-- Email Item -->
-<li [routerLink]="['url']" routerLinkActive="router-link-active" ] class="emailList__item mdl-list__item mdl-list__item--three-line" tabindex="0">
+<li (click)="goToEmail($event,id)" class="emailList__item mdl-list__item mdl-list__item--three-line" tabindex="0">
     <span class="mdl-list__item-primary-content">
       <a class="emailList__itemLink">
         <i class="material-icons mdl-list__item-avatar">person</i>
